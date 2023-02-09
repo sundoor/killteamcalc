@@ -1,0 +1,44 @@
+[Config]
+Compilator.SaveAll=0
+Compilator.Capture=0
+Compilator.HideOutput=0
+Compilator.LogType=0
+DefaultCPIndex=0
+LogtoEnd=1
+DontOpen=0
+AbsolutePath=0
+FileFormat=0
+ProjectFilesOnly=0
+[Project tree]
+New project
+	+Folder
+		+programdata
+			programdata\style.css
+			programdata\main.js
+			programdata\killteamcalc.js
+			programdata\killteamcalc-templates.js
+		index.html
+[Open project files]
+0=index.html
+1=programdata\style.css
+2=programdata\killteamcalc.js
+3=programdata\main.js
+4=programdata\killteamcalc-templates.js
+[Selected Project Files]
+Main=
+Selected=index.html
+[index.html]
+TopLine=1
+Caret=4,10
+[programdata\style.css]
+TopLine=3
+Caret=19,27
+[programdata\killteamcalc.js]
+TopLine=516
+Caret=2,567
+[programdata\main.js]
+TopLine=64
+Caret=4,115
+[programdata\killteamcalc-templates.js]
+TopLine=1
+Caret=1,1

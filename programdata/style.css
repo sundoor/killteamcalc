@@ -1,0 +1,120 @@
+body
+{
+  font-family: sans-serif;
+  font-size: 12px;
+  background-color: #fff;
+  margin: 0px;
+  padding: 0px;
+  color: #555;
+  text-align: center;
+}
+
+h1 {
+    padding: 6px;
+    font-family: 'Impact',charcoal,arial black;
+    font-size: 4em;
+    color: #c54c21;
+    letter-spacing: 0.05em;
+    font-weight: normal;
+    margin: -4px 0px 8px 0px;
+    text-transform: uppercase;
+}
+
+h2 {
+    padding: 6px;
+    font-family: 'Impact',charcoal,arial black;
+    font-size: 2.60em;
+    color: #465f65;
+    letter-spacing: 0.05em;
+    font-weight: normal;
+    margin: -4px 0px 8px 0px;
+    text-transform: uppercase;
+}
+
+input
+{
+	font-size: 2em;
+}
+
+select, input[type="text"]
+{
+	font-size: 2em;
+	color: #000;
+	background-color: #dee2e1;
+	border: 0;
+	text-align: center;
+	width: 3em;
+	height: 2em;
+	cursor: pointer;
+}
+
+input[type="text"]:hover
+{
+	background-color: #ccc;
+}
+
+#attacker_weaponName
+{
+	width: 10em;
+	font-size: 1.5em;
+}
+
+select:hover
+{
+	background-color: #ccc;
+}
+
+select:focus
+{
+	color: #fff;
+	background-color: #c54c21;
+}
+
+input[type="button"]
+{
+	cursor: pointer;
+	background-color: #c54c21;
+	color: #fff;
+	text-transform: uppercase;
+	border: 0;
+	padding: 0.2em;	
+}
+
+input[type="checkbox"]
+{
+	height: 1em;
+	cursor: pointer;
+}
+
+table
+{
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 3em;
+}
+
+th
+{
+	background-color: #000;
+	color: #fff;
+	font-size: 1.2em;
+}
+
+
+.theader-attacker
+{
+	background: #465f65;
+	font-size: 1.5em;
+}
+
+.theader-target
+{
+	background: #c54c21;
+	font-size: 1.5em;
+}
+
+.hastooltip
+{
+	text-decoration: underline dotted #fff;
+	cursor: help;
+}

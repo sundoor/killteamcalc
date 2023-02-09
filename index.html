@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<!--
+/**
+ * Kill Team shooting probability calculator
+ * (c)2023 Sándor Preszter - https://www.gnu.org/licenses/gpl-3.0.html
+ * 
+ * @author	Sándor Preszter <preszter.sandor@gmail.com>
+ * @version	1.00
+ * @since	2023-02-09 
+ */
+-->
+<html>
+  <head>
+  <meta http-equiv="content-type" content="text/html; charset=utf8">
+  <title></title>
+  <link href="programdata/jquery-ui-1.13.2.custom/jquery-ui.min.css" rel="stylesheet">
+  <link href="programdata/style.css" rel="stylesheet">
+
+  <script src="programdata/jquery-3.6.3.min.js"></script>
+  <script src="programdata/jquery-ui-1.13.2.custom/jquery-ui.min.js"></script>
+  <script src="programdata/canvasjs/jquery.canvasjs.min.js"></script>
+  <script src="programdata/killteamcalc.js"></script>
+  <script src="programdata/killteamcalc-templates.js"></script>
+  <script src="programdata/main.js"></script>
+  
+
+  </head>
+  <body>
+  	<h1>Kill team</h1>
+	<h2>Weapon calculator</h2>
+  	<div>
+  		<table>
+  			<tr>
+  				<th colspan="5">Optional: Click to select common weapon profile</th>
+  			<tr>
+  			<tr>
+  				<td colspan="5" style="text-align: right;">
+  					Common weapon profiles
+  					<select id="attacker_weaponName"></select>
+				</td>
+  			<tr>
+  			<tr>
+  				<th colspan="5" class="theader-attacker">ATTACKER</th>
+  			<tr>
+  			<tr>
+  				<th><a class="hastooltip" title="Total number of attack dice.">A</a></th>
+  				<th><a class="hastooltip" title="Ballistic skill, minimum dice value for successful hit.">BS</a></th>
+  				<th colspan="3"><a class="hastooltip" title="Weapon damage. Normal hit damage / Critical hit damage.">D</a></th>
+  			</tr>
+  			<tr>
+  				<td>
+  					<select id="attacker_a">
+						<option value=1>1</option>
+						<option value=2>2</option>
+						<option value=3>3</option>
+						<option value=4 selected>4</option>
+						<option value=5>5</option>
+						<option value=6>6</option>
+					</select>
+				</td>
+  				<td>
+  					<select id="attacker_bsx">
+						<option value=1>1+</option>
+						<option value=2>2+</option>
+						<option value=3>3+</option>
+						<option value=4 selected>4+</option>
+						<option value=5>5+</option>
+						<option value=6>6+</option>
+					</select>
+				</td>
+  				<td>
+  					<select id="attacker_damageHit">
+						<option value=0>0</option>
+						<option value=1>1</option>
+						<option value=2 selected>2</option>
+						<option value=3>3</option>
+						<option value=4>4</option>
+						<option value=5>5</option>
+						<option value=6>6</option>
+						<option value=7>7</option>
+						<option value=8>8</option>
+						<option value=9>9</option>
+						<option value=10>10</option>
+					</select>
+				</td>
+				<td>/</td>
+				<td>
+					<select id="attacker_damageCrit">
+						<option value=0>0</option>
+						<option value=1>1</option>
+						<option value=2>2</option>
+						<option value=3 selected>3</option>
+						<option value=4>4</option>
+						<option value=5>5</option>
+						<option value=6>6</option>
+						<option value=7>7</option>
+						<option value=8>8</option>
+						<option value=9>9</option>
+						<option value=10>10</option>
+					</select>
+				</td>
+  			</tr>
+  			<tr>
+  				<th colspan="5">Special Rules</th>
+  			</tr>
+  			<tr>
+  				<th><a class="hastooltip" title="Armor penetration, reduces total saves.">AP</a></th>
+  				<th><a class="hastooltip" title="Minimum dice result required for critical hits. Default is 6.">Lethal</a></th>
+  				<th><a class="hastooltip" title="Reroll one attack dice. The calculator assumes that only misses are rerolled. A single die can only be rerolled once.">Balanced</a></th>
+  				<th><a class="hastooltip" title="Reroll all dice results of 1. A single die can only be rerolled once. The calculator considers rerolling 1s first, then rerolling other misses with other reroll abilities.">Ceaseless</a></th>
+  				<th><a class="hastooltip" title="Reroll any or all attack dice. The calculator assumes that only misses are rerolled. A single die can only be rerolled once.">Relentless</a></th>
+  			</tr>
+  			<tr>
+  				<td>
+					<select id="attacker_apx">
+						<option value=0 selected>0</option>
+						<option value=1>1</option>
+						<option value=2>2</option>
+						<option value=3>3</option>
+						<option value=4>4</option>
+					</select>
+				</td>
+  				<td>
+  					<select id="attacker_lethalx">
+						<option value=1>1+</option>
+						<option value=2>2+</option>
+						<option value=3>3+</option>
+						<option value=4>4+</option>
+						<option value=5>5+</option>
+						<option value=6 selected>6+</option>
+					</select>
+				</td>
+  				<td><label class="container"><input id="attacker_balanced" type="checkbox" style="width: 1em;" /><span class="checkmark"></span></label></td>
+			  	<td><label class="container"><input id="attacker_ceaseless" type="checkbox" style="width: 1em;" /><span class="checkmark"></span></label></td>
+			  	<td><label class="container"><input id="attacker_relentless" type="checkbox" style="width: 1em;" /><span class="checkmark"></span></label></td>
+  			</tr>
+  			<tr>
+  				<th colspan="5">!</th>
+  			</tr>
+  			<tr>
+  				<th><a class="hastooltip" title="Piercing, if a critical hit is rolled, the piercing value will add to the Armor Penetration value for the attack.">P</a></th>
+  				<th><a class="hastooltip" title="Mortal wounds. Upon rolling critical hits, mortal wounds immediately take effect, cannot be saved.">MW</a></th>
+  				<th><a class="hastooltip" title="Same as MW, but has an area effect. Mortal wounds immediately take effect, cannot be saved.">Splash</a></th>
+  				<th><a class="hastooltip" title="If a critical hit is rolled, convert one normal hit to a critical hit.">Rending</a></th>
+  				<th><a class="hastooltip" title="Used for custom reroll modifications eg. Pathfinder Markerlights. A single die can only be rerolled once.">CP reroll</a></th>
+  			</tr>
+  			<tr>
+  				<td>
+				  	<select id="attacker_px">
+						<option value=0 selected>0</option>
+						<option value=1>1</option>
+						<option value=2>2</option>
+						<option value=3>3</option>
+						<option value=4>4</option>
+					</select>
+				</td>
+				<td>
+					<select id="attacker_mwx">
+						<option value=0 selected>0</option>
+						<option value=1>1</option>
+						<option value=2>2</option>
+						<option value=3>3</option>
+						<option value=4>4</option>
+						<option value=5>5</option>
+						<option value=6>6</option>
+					</select>	
+				</td>
+				<td>
+					<select id="attacker_splashx">
+						<option value=0 selected>0</option>
+						<option value=1>1</option>
+						<option value=2>2</option>
+						<option value=3>3</option>
+						<option value=4>4</option>
+						<option value=5>5</option>
+						<option value=6>6</option>
+					</select>
+				</td>
+				<td><input id="attacker_rending" type="checkbox" style="width: 1em;" /></td>
+				<td>
+					<select id="attacker_cpreroll">
+						<option value=0 selected>0</option>
+						<option value=1>1</option>
+						<option value=2>2</option>
+						<option value=3>3</option>
+						<option value=4>4</option>
+						<option value=5>5</option>
+						<option value=6>6</option>
+					</select>
+				</td>	
+  			</tr>
+  			<tr>
+  				<th colspan="5" class="theader-target">TARGET</th>
+  			<tr>
+  			<tr>
+  				<th><a class="hastooltip" title="Total number of save dice.">DF</a></th>
+  				<th><a class="hastooltip" title="Dice result required for successful save. Result of 6 ie. critical save is required to counter critical hits. Two successful normal saves can counter a critical save. The calculator takes these into consideration.">SV</a></th>
+  				<th><a class="hastooltip" title="Reduces the total number of save dice for guaranteed normal saves. The calcultor assumes that autosaves, if provided, are always used.">Autosave</a></th>
+  				<th><a class="hastooltip" title="Invulnerable save. Armor penetration is nullified.">Invuln.</a></th>
+  				<th><a class="hastooltip" title="Total number of wounds the target can sustain before getting incapacitated.">W</a></th>	
+  			</tr>
+  			<tr>
+  				<td>
+  					<select id="target_df" />
+						<option value=0>0</option>
+						<option value=1>1</option>
+						<option value=2>2</option>
+						<option value=3 selected>3</option>
+						<option value=4>4</option>
+					</select>
+				</td>
+  				<td>
+  					<select id="target_svx" />
+						<option value=1>1+</option>
+						<option value=2>2+</option>
+						<option value=3>3+</option>
+						<option value=4>4+</option>
+						<option value=5 selected>5+</option>
+						<option value=6>6+</option>
+					</select>
+				</td>
+  				<td>
+  					<select id="target_autosave" />
+						<option value=0 selected>0</option>
+						<option value=1>1</option>
+						<option value=2>2</option>
+						<option value=3>3</option>
+						<option value=4>4</option>
+					</select>
+				</td>
+  				<td><input id="target_invulnerable" type="checkbox" style="width: 1em;" /></td>
+  				<td>
+  					<select id="target_w" />
+						<option value=0>0</option>
+						<option value=1>1</option>
+						<option value=2>2</option>
+						<option value=3>3</option>
+						<option value=4>4</option>
+						<option value=5>5</option>
+						<option value=6>6</option>
+						<option value=7 selected>7</option>
+						<option value=8>8</option>
+						<option value=9>9</option>
+						<option value=10>10</option>
+						<option value=11>11</option>
+						<option value=12>12</option>
+						<option value=13>13</option>
+						<option value=14>14</option>
+						<option value=15>15</option>
+						<option value=16>16</option>
+						<option value=17>17</option>
+						<option value=18>18</option>
+						<option value=19>19</option>
+						<option value=20>20</option>
+						<option value=21>21</option>
+						<option value=22>22</option>
+						<option value=23>23</option>
+						<option value=24>24</option>
+						<option value=25>25</option>
+					</select>
+				</td>
+  			</tr>
+  			<tr>
+  				<th colspan="5" rowspan="2"><input id="dcalculate" type="button" value="Calculate" /></th>	
+  			</tr>
+  		</table>
+
+  		
+  	</div>
+  	
+  	
+  	<div>
+  		<div id="chartContainer" style="height: 500px; width: 100%;"></div>
+  	</div>
+  	<h2>TSV (tab-separated values) data</h2>
+  	<div>
+  		<textarea id="output" rows="20" cols="60" wrap="off"></textarea>
+  	</div>
+  	<div>This software was released under the <a href="https://www.gnu.org/licenses/gpl-3.0.html" target="_blank">GPL licence</a></div>
+  </body>
+</html>
