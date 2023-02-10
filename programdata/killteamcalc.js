@@ -258,19 +258,19 @@ var saveAdjustedProbabilityMatrix = function(inputMatrix, attacker, target)
         
         // In the below algorithm autosaves only decrease the total number of defence dice (autosaves are added to the normal save pool in a different function)
         
-	let maxiterationsN = target.df - target.autosave - ((target.invulnerable)? 0 : attacker.apx); // Invulnerable save nullifies armor penetration
+	var maxiterationsN = target.df - target.autosave - ((target.invulnerable)? 0 : attacker.apx); // Invulnerable save nullifies armor penetration
 	maxiterationsN = (maxiterationsN < 0)? 0 : maxiterationsN; // Prevent negative save rolls
-	let saveRollMatrixN = new combinationMatrix(maxiterationsN, target.svx, 6);	
+	var saveRollMatrixN = new combinationMatrix(maxiterationsN, target.svx, 6);	
 	saveRollMatrixN = new probabilityMatrix(saveRollMatrixN); 
 	
 	
 	// Create another set of saves for Piercing activation
 	// Armor penetration only happens in case there is at least one critical hit, so need to use both sets depending on distinct dice roll result 
 	if(attacker.px > 0)
-	{
-		let maxiterationsP = target.df - target.autosave - ((target.invulnerable)? 0 : (attacker.apx + attacker.px));
+	{         
+		var maxiterationsP = target.df - target.autosave - ((target.invulnerable)? 0 : (attacker.apx + attacker.px));
 		maxiterationsP = (maxiterationsP < 0)? 0 : maxiterationsP; // Prevent negative save rolls
-		let saveRollMatrixP = new combinationMatrix(maxiterationsP, target.svx, 6);	
+		var saveRollMatrixP = new combinationMatrix(maxiterationsP, target.svx, 6);	
 		saveRollMatrixP = new probabilityMatrix(saveRollMatrixP);
 	} 
 	
